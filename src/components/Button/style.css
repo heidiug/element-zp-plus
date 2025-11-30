@@ -1,0 +1,384 @@
+.zp-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  background: var(--zp-bg-color);
+  border: var(--zp-border);
+  border-color: var(--zp-border-color);
+  color: var(--zp-text-color-regular);
+  text-align: center;
+  box-sizing: border-box;
+  outline: none;
+  margin: 0;
+  font-weight: 500;
+  font-size: 12px;
+  font-family: var(--zp-font-family);
+  padding: 6px 14px;
+  min-width: 74px;
+  height: 28px;
+  border-radius: var(--zp-border-radius-base);
+  transition: all 0.3s;
+
+  &:hover,
+  &:focus {
+    color: var(--zp-color-primary);
+    border-color: var(--zp-color-primary-light-5);
+    background-color: var(--zp-color-primary-light-9);
+  }
+
+  &:active {
+    color: var(--zp-color-primary-dark-2);
+    border-color: var(--zp-color-primary-dark-2);
+    background-color: var(--zp-color-primary-light-7);
+  }
+
+  &:disabled,
+  &.is-disabled {
+    color: var(--zp-disabled-text-color);
+    cursor: not-allowed;
+    background-image: none;
+    background-color: var(--zp-disabled-bg-color);
+    border-color: var(--zp-disabled-border-color);
+
+    &:hover,
+    &:focus {
+      color: var(--zp-disabled-text-color);
+      cursor: not-allowed;
+      background-color: var(--zp-disabled-bg-color);
+      border-color: var(--zp-disabled-border-color);
+    }
+  }
+
+  span {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+  }
+
+  [class*=zp-icon] + span {
+    margin-left: 5px;
+  }
+}
+
+/* 按钮类型样式 */
+.zp-button--primary {
+  color: #ffffff;
+  background-color: var(--zp-color-primary);
+  border-color: var(--zp-color-primary);
+
+  &:hover,
+  &:focus {
+    background: var(--zp-color-primary-light-3);
+    border-color: var(--zp-color-primary-light-3);
+    color: #ffffff;
+  }
+
+  &:active {
+    background: var(--zp-color-primary-dark-2);
+    border-color: var(--zp-color-primary-dark-2);
+    color: #ffffff;
+  }
+
+  &.is-plain {
+    color: var(--zp-color-primary);
+    background: var(--zp-color-primary-light-9);
+    border-color: var(--zp-color-primary-light-5);
+
+    &:hover,
+    &:focus {
+      background: var(--zp-color-primary);
+      border-color: var(--zp-color-primary);
+      color: #ffffff;
+    }
+
+    &:active {
+      background: var(--zp-color-primary-dark-2);
+      border-color: var(--zp-color-primary-dark-2);
+      color: #ffffff;
+    }
+  }
+}
+
+.zp-button--success {
+  color: #ffffff;
+  background-color: var(--zp-color-success);
+  border-color: var(--zp-color-success);
+
+  &:hover,
+  &:focus {
+    background: var(--zp-color-success-light-3);
+    border-color: var(--zp-color-success-light-3);
+    color: #ffffff;
+  }
+
+  &:active {
+    background: var(--zp-color-success-dark-2);
+    border-color: var(--zp-color-success-dark-2);
+    color: #ffffff;
+  }
+
+  &.is-plain {
+    color: var(--zp-color-success);
+    background: var(--zp-color-success-light-9);
+    border-color: var(--zp-color-success-light-5);
+
+    &:hover,
+    &:focus {
+      background: var(--zp-color-success);
+      border-color: var(--zp-color-success);
+      color: #ffffff;
+    }
+
+    &:active {
+      background: var(--zp-color-success-dark-2);
+      border-color: var(--zp-color-success-dark-2);
+      color: #ffffff;
+    }
+  }
+}
+
+.zp-button--warning {
+  color: #ffffff;
+  background-color: var(--zp-color-warning);
+  border-color: var(--zp-color-warning);
+
+  &:hover,
+  &:focus {
+    background: var(--zp-color-warning-light-3);
+    border-color: var(--zp-color-warning-light-3);
+    color: #ffffff;
+  }
+
+  &:active {
+    background: var(--zp-color-warning-dark-2);
+    border-color: var(--zp-color-warning-dark-2);
+    color: #ffffff;
+  }
+
+  &.is-plain {
+    color: var(--zp-color-warning);
+    background: var(--zp-color-warning-light-9);
+    border-color: var(--zp-color-warning-light-5);
+
+    &:hover,
+    &:focus {
+      background: var(--zp-color-warning);
+      border-color: var(--zp-color-warning);
+      color: #ffffff;
+    }
+
+    &:active {
+      background: var(--zp-color-warning-dark-2);
+      border-color: var(--zp-color-warning-dark-2);
+      color: #ffffff;
+    }
+  }
+}
+
+.zp-button--danger {
+  color: #ffffff;
+  background-color: var(--zp-color-danger);
+  border-color: var(--zp-color-danger);
+
+  &:hover,
+  &:focus {
+    background: var(--zp-color-danger-light-3);
+    border-color: var(--zp-color-danger-light-3);
+    color: #ffffff;
+  }
+
+  &:active {
+    background: var(--zp-color-danger-dark-2);
+    border-color: var(--zp-color-danger-dark-2);
+    color: #ffffff;
+  }
+
+  &.is-plain {
+    color: var(--zp-color-danger);
+    background: var(--zp-color-danger-light-9);
+    border-color: var(--zp-color-danger-light-5);
+
+    &:hover,
+    &:focus {
+      background: var(--zp-color-danger);
+      border-color: var(--zp-color-danger);
+      color: #ffffff;
+    }
+
+    &:active {
+      background: var(--zp-color-danger-dark-2);
+      border-color: var(--zp-color-danger-dark-2);
+      color: #ffffff;
+    }
+  }
+}
+
+.zp-button--info {
+  color: #ffffff;
+  background-color: var(--zp-color-info);
+  border-color: var(--zp-color-info);
+
+  &:hover,
+  &:focus {
+    background: var(--zp-color-info-light-3);
+    border-color: var(--zp-color-info-light-3);
+    color: #ffffff;
+  }
+
+  &:active {
+    background: var(--zp-color-info-dark-2);
+    border-color: var(--zp-color-info-dark-2);
+    color: #ffffff;
+  }
+
+  &.is-plain {
+    color: var(--zp-color-info);
+    background: var(--zp-color-info-light-9);
+    border-color: var(--zp-color-info-light-5);
+
+    &:hover,
+    &:focus {
+      background: var(--zp-color-info);
+      border-color: var(--zp-color-info);
+      color: #ffffff;
+    }
+
+    &:active {
+      background: var(--zp-color-info-dark-2);
+      border-color: var(--zp-color-info-dark-2);
+      color: #ffffff;
+    }
+  }
+}
+
+/* 按钮尺寸样式 */
+.zp-button--large {
+  padding: 7px 13px;
+  font-size: 14px;
+  font-weight: 500;
+  min-width: 88px;
+  height: 33px;
+  border-radius: var(--zp-border-radius-base);
+}
+
+.zp-button--small {
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  min-width: 52px;
+  height: 20px;
+  border-radius: var(--zp-border-radius-base);
+}
+
+/* 圆角样式 */
+.zp-button.is-round {
+  border-radius: 14px;
+  padding: 6px 13px;
+  min-width: 74px;
+  height: 28px;
+
+  &.zp-button--large {
+    padding: 7px 15px;
+    min-width: 88px;
+    height: 33px;
+  }
+
+  &.zp-button--small {
+    padding: 4px 10px;
+    min-width: 52px;
+    height: 20px;
+  }
+}
+
+.zp-button.is-circle {
+  border-radius: var(--zp-border-radius-circle);
+  padding: 6px;
+  width: auto;
+  min-width: 20px;
+  height: 20px;
+
+  &.zp-button--large {
+    padding: 7px;
+    min-width: 25px;
+    height: 25px;
+  }
+
+  &.zp-button--small {
+    padding: 4px;
+    min-width: 14px;
+    height: 14px;
+  }
+
+  span {
+    padding: 0;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+.zp-button.is-text {
+  background: transparent;
+  border: none;
+  color: var(--zp-text-color-regular);
+
+  &:hover,
+  &:focus {
+    background: var(--zp-fill-color-lighter);
+    color: var(--zp-text-color-regular);
+  }
+
+  /* 根据 type 变化文字颜色 */
+  &.zp-button--primary {
+    color: var(--zp-color-primary);
+
+    &:hover,
+    &:focus {
+      background: var(--zp-color-primary-light-9);
+      color: var(--zp-color-primary);
+    }
+  }
+
+  &.zp-button--success {
+    color: var(--zp-color-success);
+
+    &:hover,
+    &:focus {
+      background: var(--zp-color-success-light-9);
+      color: var(--zp-color-success);
+    }
+  }
+
+  &.zp-button--warning {
+    color: var(--zp-color-warning);
+
+    &:hover,
+    &:focus {
+      background: var(--zp-color-warning-light-9);
+      color: var(--zp-color-warning);
+    }
+  }
+
+  &.zp-button--danger {
+    color: var(--zp-color-danger);
+
+    &:hover,
+    &:focus {
+      background: var(--zp-color-danger-light-9);
+      color: var(--zp-color-danger);
+    }
+  }
+
+  &.zp-button--info {
+    color: var(--zp-color-info);
+
+    &:hover,
+    &:focus {
+      background: var(--zp-color-info-light-9);
+      color: var(--zp-color-info);
+    }
+  }
+}
+

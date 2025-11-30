@@ -1,0 +1,16 @@
+.zp-icon {
+    --zp-icon-color:inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    fill: currentColor;
+    color: var(--zp-icon-color);
+    font-size: inherit;
+}
+
+@each $value in primary, success, warning, danger, info {
+    .zp-icon--$(value) {
+        --zp-icon-color: var(--zp-color-$(value));
+    }
+}

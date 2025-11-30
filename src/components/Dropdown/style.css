@@ -1,0 +1,160 @@
+/* =========================================
+   1. 核心修复：覆盖 Tooltip 默认样式
+   ========================================= */
+
+/* 让 Tooltip 容器透明，去掉默认的黑色背景和内边距 */
+.zp-dropdown-tooltip .zp-tooltip {
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  color: inherit !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  pointer-events: auto !important; /* 确保可以点击 */
+}
+
+/* 彻底隐藏 Tooltip 自带的箭头 */
+.zp-dropdown-tooltip .zp-tooltip__arrow,
+.zp-dropdown-tooltip .zp-tooltip::after,
+.zp-dropdown-tooltip .zp-tooltip::before {
+  display: none !important;
+  content: none !important;
+}
+
+/* =========================================
+   2. 菜单容器样式
+   ========================================= */
+
+.zp-dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 4px;
+  border: 1px solid #e4e7ed;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  padding: 5px 0;
+  min-width: 120px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 10; /* 确保在最上层 */
+  pointer-events: auto; /* 确保接收点击 */
+}
+
+/* =========================================
+   3. 菜单项样式
+   ========================================= */
+
+.zp-dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #606266;
+  cursor: pointer;
+  line-height: 22px;
+  white-space: nowrap;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+  user-select: none;
+  position: relative;
+}
+
+.zp-dropdown-item:hover:not(.is-disabled) {
+  background-color: #ecf5ff;
+  color: #409eff;
+}
+
+.zp-dropdown-item.is-disabled {
+  color: #a8abb2;
+  cursor: not-allowed;
+  background-color: transparent;
+}
+
+.zp-dropdown-item.is-divided {
+  border-bottom: 1px solid #e4e7ed;
+  margin-top: 5px;
+  padding-top: 12px;
+}
+
+/* =========================================
+   4. 小三角箭头样式
+   ========================================= */
+
+.zp-dropdown-menu::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #ffffff;
+  border: 1px solid #e4e7ed;
+  transform: rotate(45deg);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* 箭头定位逻辑 */
+.zp-dropdown-tooltip .zp-tooltip[data-popper-placement^='top'] .zp-dropdown-menu::before {
+  bottom: -5px;
+  left: 50%;
+  margin-left: -5px;
+  border-top-color: transparent;
+  border-left-color: transparent;
+}
+.zp-dropdown-tooltip .zp-tooltip[data-popper-placement='top-start'] .zp-dropdown-menu::before {
+  left: 20px;
+  margin-left: 0;
+}
+.zp-dropdown-tooltip .zp-tooltip[data-popper-placement='top-end'] .zp-dropdown-menu::before {
+  left: auto;
+  right: 20px;
+}
+
+.zp-dropdown-tooltip .zp-tooltip[data-popper-placement^='bottom'] .zp-dropdown-menu::before {
+  top: -5px;
+  left: 50%;
+  margin-left: -5px;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+}
+.zp-dropdown-tooltip .zp-tooltip[data-popper-placement='bottom-start'] .zp-dropdown-menu::before {
+  left: 20px;
+  margin-left: 0;
+}
+.zp-dropdown-tooltip .zp-tooltip[data-popper-placement='bottom-end'] .zp-dropdown-menu::before {
+  left: auto;
+  right: 20px;
+}
+
+.zp-dropdown-tooltip .zp-tooltip[data-popper-placement^='left'] .zp-dropdown-menu::before {
+  right: -5px;
+  top: 50%;
+  margin-top: -5px;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}
+.zp-dropdown-tooltip .zp-tooltip[data-popper-placement='left-start'] .zp-dropdown-menu::before {
+  top: 20px;
+  margin-top: 0;
+}
+.zp-dropdown-tooltip .zp-tooltip[data-popper-placement='left-end'] .zp-dropdown-menu::before {
+  top: auto;
+  bottom: 20px;
+}
+
+.zp-dropdown-tooltip .zp-tooltip[data-popper-placement^='right'] .zp-dropdown-menu::before {
+  left: -5px;
+  top: 50%;
+  margin-top: -5px;
+  border-top-color: transparent;
+  border-right-color: transparent;
+}
+.zp-dropdown-tooltip .zp-tooltip[data-popper-placement='right-start'] .zp-dropdown-menu::before {
+  top: 20px;
+  margin-top: 0;
+}
+.zp-dropdown-tooltip .zp-tooltip[data-popper-placement='right-end'] .zp-dropdown-menu::before {
+  top: auto;
+  bottom: 20px;
+}

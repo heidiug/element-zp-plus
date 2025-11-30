@@ -1,0 +1,169 @@
+/* Tooltip 文字提示样式 */
+
+.zp-tooltip-container {
+  display: inline-block;
+}
+
+.zp-tooltip-reference {
+  display: inline-block;
+}
+
+.zp-tooltip {
+  position: absolute;
+    /* 必须设置 pointer-events: none 防止鼠标移动到它上面导致 mouseleave 事件丢失 */
+    /* 确保它浮在最上层 */
+  z-index: 2000;
+    padding: 8px 12px;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #ffffff;
+  border-radius: var(--zp-border-radius-base);
+  font-size: var(--zp-font-size-base);
+  font-family: var(--zp-font-family);
+  line-height: 1.5;
+  white-space: normal;
+  word-wrap: break-word;
+  word-break: break-word;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  max-width: 200px;
+  min-width: 30px;
+  box-sizing: border-box;
+  text-align: left;
+  pointer-events: auto;
+
+  /* 箭头的基础样式 - 使用 ::after 创建箭头 */
+  &::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    border-style: solid;
+    border-width: 6px;
+    z-index: 1;
+  }
+}
+
+
+
+/* Top 位置的箭头样式 - 箭头在底部，向下指向 */
+.zp-tooltip[data-popper-placement^="top"] {
+  &::after {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-color: rgba(0, 0, 0, 0.75) transparent transparent transparent;
+    border-width: 6px 6px 0 6px;
+  }
+}
+
+/* Top-start 位置的箭头样式 - 箭头靠左对齐 */
+.zp-tooltip[data-popper-placement="top-start"] {
+  &::after {
+    left: 12px;
+    transform: none;
+  }
+}
+
+/* Top-end 位置的箭头样式 - 箭头靠右对齐 */
+.zp-tooltip[data-popper-placement="top-end"] {
+  &::after {
+    left: auto;
+    right: 12px;
+    transform: none;
+  }
+}
+
+/* Bottom 位置的箭头样式 - 箭头在顶部，向上指向 */
+.zp-tooltip[data-popper-placement^="bottom"] {
+  &::after {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-color: transparent transparent rgba(0, 0, 0, 0.75) transparent;
+    border-width: 0 6px 6px 6px;
+  }
+}
+
+/* Bottom-start 位置的箭头样式 - 箭头靠左对齐 */
+.zp-tooltip[data-popper-placement="bottom-start"] {
+  &::after {
+    left: 12px;
+    transform: none;
+  }
+}
+
+/* Bottom-end 位置的箭头样式 - 箭头靠右对齐 */
+.zp-tooltip[data-popper-placement="bottom-end"] {
+  &::after {
+    left: auto;
+    right: 12px;
+    transform: none;
+  }
+}
+
+/* Left 位置的箭头样式 - 箭头在右侧，向右指向 */
+.zp-tooltip[data-popper-placement^="left"] {
+  &::after {
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-color: transparent transparent transparent rgba(0, 0, 0, 0.75);
+    border-width: 6px 0 6px 6px;
+  }
+}
+
+/* Left-start 位置的箭头样式 - 箭头靠上对齐 */
+.zp-tooltip[data-popper-placement="left-start"] {
+  &::after {
+    top: 12px;
+    transform: none;
+  }
+}
+
+/* Left-end 位置的箭头样式 - 箭头靠下对齐 */
+.zp-tooltip[data-popper-placement="left-end"] {
+  &::after {
+    top: auto;
+    bottom: 12px;
+    transform: none;
+  }
+}
+
+/* Right 位置的箭头样式 - 箭头在左侧，向左指向 */
+.zp-tooltip[data-popper-placement^="right"] {
+  &::after {
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-color: transparent rgba(0, 0, 0, 0.75) transparent transparent;
+    border-width: 6px 6px 6px 0;
+  }
+}
+
+/* Right-start 位置的箭头样式 - 箭头靠上对齐 */
+.zp-tooltip[data-popper-placement="right-start"] {
+  &::after {
+    top: 12px;
+    transform: none;
+  }
+}
+
+/* Right-end 位置的箭头样式 - 箭头靠下对齐 */
+.zp-tooltip[data-popper-placement="right-end"] {
+  &::after {
+    top: auto;
+    bottom: 12px;
+    transform: none;
+  }
+}
+
+/* 淡入淡出过渡动画 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease-in-out;
+  }
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+  }

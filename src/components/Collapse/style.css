@@ -1,0 +1,155 @@
+/* Collapse 折叠面板样式 */
+
+/* 外层容器 */
+.zp-collapse {
+  user-select: none;
+  border: 1px solid var(--zp-border-color-lighter);
+  border-radius: var(--zp-border-radius-base);
+  background-color: var(--zp-bg-color);
+  overflow: hidden;
+  width: 100%;
+  max-width: 800px;
+}
+
+/* 折叠项 */
+.zp-collapse-item {
+  border-bottom: 1px solid var(--zp-border-color-lighter);
+  width: 100%;
+  box-sizing: border-box;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+/* 折叠项头部 */
+.zp-collapse-item__header {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  line-height: 48px;
+  background-color: var(--zp-bg-color);
+  color: var(--zp-text-color-primary);
+  cursor: pointer;
+  border-bottom: 1px solid var(--zp-border-color-lighter);
+  font-size: var(--zp-font-size-base);
+  font-weight: var(--zp-font-weight-primary);
+  transition: border-bottom-color 0.3s;
+  outline: none;
+  padding: 0 20px;
+  position: relative;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+  }
+
+  /* 箭头图标 */
+  .header-angle {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--zp-text-color-secondary);
+    font-size: var(--zp-font-size-base);
+    transition: transform 0.3s ease;
+  }
+}
+
+/* 激活状态下的箭头旋转和边框消失 */
+.zp-collapse-item.is-active .zp-collapse-item__header {
+  border-bottom-color: transparent;
+
+  .header-angle {
+    transform: translateY(-50%) rotate(90deg);
+  }
+}
+
+/* 最后一个折叠项的头部不需要下边框 */
+.zp-collapse-item:last-child .zp-collapse-item__header {
+  border-bottom: none;
+}
+
+/* 折叠项内容 */
+.zp-collapse-item__content {
+  overflow: hidden;
+  box-sizing: border-box;
+  background-color: var(--zp-bg-color);
+  color: var(--zp-text-color-regular);
+  font-size: var(--zp-font-size-base);
+  line-height: 1.6;
+  padding: 0 20px;
+  padding-bottom: 20px;
+  padding-top: 10px;
+  border-bottom: 1px solid var(--zp-border-color-lighter);
+  /* 文字换行机制 */
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  transition:
+    height 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+    padding-top 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+    padding-bottom 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* 内容包装器（用于动画） */
+.zp-collapse-item__content-wrap {
+  padding-bottom: 25px;
+  padding-top: 10px;
+}
+
+/* 禁用状态 */
+.zp-collapse-item.is-disabled {
+  .zp-collapse-item__header {
+    color: var(--zp-text-color-disabled);
+    cursor: not-allowed;
+    background-image: none;
+
+    &:hover,
+    &:focus {
+      color: var(--zp-text-color-disabled);
+      cursor: not-allowed;
+    }
+
+    .header-angle {
+      color: var(--zp-text-color-disabled);
+    }
+  }
+}
+
+/* 无边框模式（如果需要） */
+.zp-collapse.is-borderless {
+  border: none;
+  background-color: transparent;
+
+  .zp-collapse-item {
+    border-bottom: none;
+
+    .zp-collapse-item__header {
+      border-bottom: none;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .zp-collapse-item__content {
+      border-bottom: none;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+/* .fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+} */
+.slide-enter-active,
+.slide-leave-active {
+  transition: height 0.5s ease;
+  overflow: hidden;
+}
+
+/* .fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+} */

@@ -1,0 +1,208 @@
+/* Message 消息提示样式 */
+
+.zp-message {
+  width: max-content;
+  max-width: calc(100vw - 32px);
+  box-sizing: border-box;
+  border-radius: var(--zp-border-radius-base);
+  position: fixed;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+  background-color: var(--zp-bg-color);
+  border: var(--zp-border);
+  border-width: 1px;
+  border-style: solid;
+  padding: 15px 19px 15px 15px;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.3s, transform 0.4s, top 0.4s;
+  overflow-wrap: anywhere;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  font-family: var(--zp-font-family);
+  font-size: var(--zp-font-size-base);
+  line-height: 1.5;
+  color: var(--zp-text-color-primary);
+
+  /* 图标 */
+  .zp-message__icon {
+    font-size: var(--zp-font-size-base);
+    margin-right: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: inherit;
+  }
+
+  /* 内容区域 */
+  .zp-message__content {
+    padding: 0;
+    font-size: var(--zp-font-size-base);
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+  }
+
+  /* 关闭按钮 */
+  .zp-message__close {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--zp-text-color-secondary);
+    font-size: var(--zp-font-size-base);
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--zp-text-color-primary);
+    }
+  }
+
+  /* 默认类型 - info */
+  &.zp-message--info {
+    background-color: var(--zp-color-info-light-9);
+    border-color: var(--zp-color-info-light-8);
+    color: var(--zp-color-info);
+
+    .zp-message__close {
+      color: var(--zp-color-info);
+    }
+  }
+
+  /* 成功类型 */
+  &.zp-message--success {
+    background-color: var(--zp-color-success-light-9);
+    border-color: var(--zp-color-success-light-8);
+    color: var(--zp-color-success);
+
+    .zp-message__close {
+      color: var(--zp-color-success);
+    }
+  }
+
+  /* 警告类型 */
+  &.zp-message--warning {
+    background-color: var(--zp-color-warning-light-9);
+    border-color: var(--zp-color-warning-light-8);
+    color: var(--zp-color-warning);
+
+    .zp-message__close {
+      color: var(--zp-color-warning);
+    }
+  }
+
+  /* 错误类型 */
+  &.zp-message--error {
+    background-color: var(--zp-color-error-light-9);
+    border-color: var(--zp-color-error-light-8);
+    color: var(--zp-color-error);
+
+    .zp-message__close {
+      color: var(--zp-color-error);
+    }
+  }
+
+  /* 主要类型 */
+  &.zp-message--primary {
+    background-color: var(--zp-color-primary-light-9);
+    border-color: var(--zp-color-primary-light-8);
+    color: var(--zp-color-primary);
+
+    .zp-message__close {
+      color: var(--zp-color-primary);
+    }
+  }
+
+  /* Plain 模式 - 朴素样式 */
+  &.is-plain {
+    background-color: var(--zp-bg-color);
+    border-color: var(--zp-border-color);
+
+    &.zp-message--info {
+      color: var(--zp-color-info);
+      border-color: var(--zp-color-info-light-5);
+
+      .zp-message__close {
+        color: var(--zp-color-info);
+      }
+    }
+
+    &.zp-message--success {
+      color: var(--zp-color-success);
+      border-color: var(--zp-color-success-light-5);
+
+      .zp-message__close {
+        color: var(--zp-color-success);
+      }
+    }
+
+    &.zp-message--warning {
+      color: var(--zp-color-warning);
+      border-color: var(--zp-color-warning-light-5);
+
+      .zp-message__close {
+        color: var(--zp-color-warning);
+      }
+    }
+
+    &.zp-message--error {
+      color: var(--zp-color-error);
+      border-color: var(--zp-color-error-light-5);
+
+      .zp-message__close {
+        color: var(--zp-color-error);
+      }
+    }
+
+    &.zp-message--primary {
+      color: var(--zp-color-primary);
+      border-color: var(--zp-color-primary-light-5);
+
+      .zp-message__close {
+        color: var(--zp-color-primary);
+      }
+    }
+  }
+
+  /* 可关闭时的内容区域调整 */
+  &.is-close {
+    .zp-message__content {
+      padding-right: 30px;
+    }
+  }
+}
+
+/* 消息动画效果 */
+.message-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.message-fade-leave-active {
+  transition: all 0.3s ease-in;
+}
+
+.message-fade-enter-from {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-100%);
+}
+
+.message-fade-enter-to {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.message-fade-leave-from {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.message-fade-leave-to {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-100%);
+}

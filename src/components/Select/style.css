@@ -1,0 +1,317 @@
+/* =========================================
+   1. 核心修复：覆盖 Tooltip 默认样式
+   ========================================= */
+
+/* 让 Tooltip 容器透明，去掉默认的黑色背景和内边距 */
+.zp-select-tooltip .zp-tooltip {
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  color: inherit !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  pointer-events: auto !important;
+}
+
+/* 隐藏 Tooltip 自带的箭头，使用菜单的 ::before 箭头 */
+.zp-select-tooltip .zp-tooltip::after {
+  display: none !important;
+}
+
+/* 覆盖 Tooltip 的 fade 动画，使用 scaleY 动画 */
+.zp-select-tooltip .fade-enter-active,
+.zp-select-tooltip .fade-leave-active {
+  transition: none !important;
+}
+
+.zp-select-tooltip .fade-enter-from,
+.zp-select-tooltip .fade-leave-to {
+  opacity: 1 !important;
+}
+
+/* =========================================
+   2. 菜单容器样式
+   ========================================= */
+
+.zp-select__menu {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 4px;
+  border: 1px solid #e4e7ed;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  padding: 6px 0;
+  min-width: 120px; /* 保持最小宽度，但会根据 Select 宽度自动调整 */
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2000;
+  pointer-events: auto;
+  margin: 0;
+  list-style: none;
+  overflow: visible; /* 确保箭头可以显示在菜单外部 */
+}
+
+/* =========================================
+   Select 下拉菜单的 scaleY 动画（Element Plus 风格）
+   ========================================= */
+
+/* 进入和离开的过渡动画 */
+.zp-zoom-in-top-enter-active,
+.zp-zoom-in-top-leave-active {
+  opacity: 1;
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  transform-origin: center top; /* 默认从顶部展开 */
+}
+
+/* 进入前和离开后的状态（隐藏状态） */
+.zp-zoom-in-top-enter-from,
+.zp-zoom-in-top-leave-to {
+  opacity: 0;
+  transform: scaleY(0); /* 垂直方向缩放到0 */
+}
+
+/* 根据 Tooltip 的 placement 动态调整 transform-origin */
+/* 菜单在下方显示时（bottom 系列） */
+.zp-select-tooltip .zp-tooltip[data-popper-placement^='bottom'] .zp-zoom-in-top-enter-active,
+.zp-select-tooltip .zp-tooltip[data-popper-placement^='bottom'] .zp-zoom-in-top-leave-active {
+  transform-origin: center top; /* 从顶部展开 */
+}
+
+/* 菜单在上方显示时（top 系列） */
+.zp-select-tooltip .zp-tooltip[data-popper-placement^='top'] .zp-zoom-in-top-enter-active,
+.zp-select-tooltip .zp-tooltip[data-popper-placement^='top'] .zp-zoom-in-top-leave-active {
+  transform-origin: center bottom; /* 从底部展开 */
+}
+
+/* 菜单在左侧显示时（left 系列） */
+.zp-select-tooltip .zp-tooltip[data-popper-placement^='left'] .zp-zoom-in-top-enter-active,
+.zp-select-tooltip .zp-tooltip[data-popper-placement^='left'] .zp-zoom-in-top-leave-active {
+  transform-origin: right center; /* 从右侧展开 */
+}
+
+/* 菜单在右侧显示时（right 系列） */
+.zp-select-tooltip .zp-tooltip[data-popper-placement^='right'] .zp-zoom-in-top-enter-active,
+.zp-select-tooltip .zp-tooltip[data-popper-placement^='right'] .zp-zoom-in-top-leave-active {
+  transform-origin: left center; /* 从左侧展开 */
+}
+
+/* =========================================
+   3. 菜单项样式
+   ========================================= */
+
+.zp-select__menu-item {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #606266;
+  cursor: pointer;
+  line-height: 34px;
+  white-space: nowrap;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+  user-select: none;
+  position: relative;
+}
+
+.zp-select__menu-item:hover:not(.is-disabled) {
+  background-color: #f5f7fa;
+  color: #606266;
+}
+
+/* disabled 状态样式 - 优先级最高 */
+.zp-select__menu-item.is-disabled {
+  color: #a8abb2 !important;
+  cursor: not-allowed !important;
+  background-color: transparent !important;
+  font-weight: normal !important;
+}
+
+/* disabled 状态下，即使 hover 也不改变样式 */
+.zp-select__menu-item.is-disabled:hover {
+  background-color: transparent !important;
+  color: #a8abb2 !important;
+}
+
+/* disabled 状态下，自定义渲染的内容也要应用 disabled 样式（覆盖内联样式） */
+.zp-select__menu-item.is-disabled,
+.zp-select__menu-item.is-disabled *,
+.zp-select__menu-item.is-disabled div,
+.zp-select__menu-item.is-disabled span,
+.zp-select__menu-item.is-disabled b,
+.zp-select__menu-item.is-disabled .custom-render-label,
+.zp-select__menu-item.is-disabled .custom-render-label *,
+.zp-select__menu-item.is-disabled .custom-render-label div,
+.zp-select__menu-item.is-disabled .custom-render-label span,
+.zp-select__menu-item.is-disabled .custom-render-label b {
+  color: #a8abb2 !important;
+}
+
+/* 确保 disabled 状态下，所有有内联样式的子元素都应用 disabled 颜色 */
+.zp-select__menu-item.is-disabled [style],
+.zp-select__menu-item.is-disabled [style*="color"],
+.zp-select__menu-item.is-disabled div[style],
+.zp-select__menu-item.is-disabled div[style*="color"] {
+  color: #a8abb2 !important;
+}
+
+/* 选中项样式 - 蓝色文字，浅蓝色背景（但 disabled 状态优先级更高） */
+.zp-select__menu-item.is-selected:not(.is-disabled) {
+  color: #409eff;
+  background-color: #ecf5ff;
+  font-weight: 700;
+}
+
+/* 如果同时是 disabled 和 selected，disabled 优先级更高 */
+.zp-select__menu-item.is-disabled.is-selected {
+  color: #a8abb2 !important;
+  background-color: transparent !important;
+  font-weight: normal !important;
+}
+
+.zp-select__menu-item.is-disabled.is-selected :deep(*) {
+  color: #a8abb2 !important;
+}
+
+/* =========================================
+   4. 小三角箭头样式（核心实现）
+   ========================================= */
+
+/* 使用 ::before 伪元素创建箭头（旋转的正方形） */
+.zp-select__menu::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #ffffff; /* 背景色必须和菜单背景一致 */
+  transform: rotate(45deg); /* 旋转45度 */
+  z-index: 2001; /* 确保它盖在阴影上面 */
+  pointer-events: none;
+}
+
+/* =========================================
+   箭头定位逻辑 - 根据 Tooltip 的 placement 调整位置
+   ========================================= */
+
+/* Top 位置 - 箭头在底部，向下指向 */
+.zp-select-tooltip .zp-tooltip[data-popper-placement^='top'] .zp-select__menu::before {
+  bottom: -6px;
+  left: 50%;
+  margin-left: -5px;
+  border-bottom: 1px solid #e4e7ed;
+  border-right: 1px solid #e4e7ed;
+  border-top: none;
+  border-left: none;
+}
+
+.zp-select-tooltip .zp-tooltip[data-popper-placement='top-start'] .zp-select__menu::before {
+  left: 12px;
+  margin-left: 0;
+}
+
+.zp-select-tooltip .zp-tooltip[data-popper-placement='top-end'] .zp-select__menu::before {
+  left: auto;
+  right: 12px;
+  margin-left: 0;
+}
+
+/* Bottom 位置 - 箭头在顶部，向上指向 */
+.zp-select-tooltip .zp-tooltip[data-popper-placement^='bottom'] .zp-select__menu::before {
+  top: -6px;
+  left: 50%;
+  margin-left: -5px;
+  border-top: 1px solid #e4e7ed;
+  border-left: 1px solid #e4e7ed;
+  border-bottom: none;
+  border-right: none;
+}
+
+.zp-select-tooltip .zp-tooltip[data-popper-placement='bottom-start'] .zp-select__menu::before {
+  left: 12px;
+  margin-left: 0;
+}
+
+.zp-select-tooltip .zp-tooltip[data-popper-placement='bottom-end'] .zp-select__menu::before {
+  left: auto;
+  right: 12px;
+  margin-left: 0;
+}
+
+/* Left 位置 - 箭头在右侧，向右指向 */
+.zp-select-tooltip .zp-tooltip[data-popper-placement^='left'] .zp-select__menu::before {
+  right: -6px;
+  top: 50%;
+  margin-top: -5px;
+  border-right: 1px solid #e4e7ed;
+  border-bottom: 1px solid #e4e7ed;
+  border-top: none;
+  border-left: none;
+}
+
+.zp-select-tooltip .zp-tooltip[data-popper-placement='left-start'] .zp-select__menu::before {
+  top: 12px;
+  margin-top: 0;
+}
+
+.zp-select-tooltip .zp-tooltip[data-popper-placement='left-end'] .zp-select__menu::before {
+  top: auto;
+  bottom: 12px;
+  margin-top: 0;
+}
+
+/* Right 位置 - 箭头在左侧，向左指向 */
+.zp-select-tooltip .zp-tooltip[data-popper-placement^='right'] .zp-select__menu::before {
+  left: -6px;
+  top: 50%;
+  margin-top: -5px;
+  border-left: 1px solid #e4e7ed;
+  border-top: 1px solid #e4e7ed;
+  border-bottom: none;
+  border-right: none;
+}
+
+.zp-select-tooltip .zp-tooltip[data-popper-placement='right-start'] .zp-select__menu::before {
+  top: 12px;
+  margin-top: 0;
+}
+
+.zp-select-tooltip .zp-tooltip[data-popper-placement='right-end'] .zp-select__menu::before {
+  top: auto;
+  bottom: 12px;
+  margin-top: 0;
+}
+
+/* =========================================
+   5. 其他样式
+   ========================================= */
+
+.zp-select {
+  user-select: none;
+  cursor: pointer;
+}
+
+/* 修改 Select 中 Input 的文字颜色 - 统一使用 #535353 */
+.zp-select .zp-select-tooltip :deep(.zp-input) :deep(.zp-input__wrapper) :deep(.zp-input__inner),
+.zp-select-tooltip :deep(.zp-input) :deep(.zp-input__wrapper) :deep(.zp-input__inner) {
+  color: #535353 !important;
+}
+
+/* disabled状态下select的选项状态（确保优先级最高）*/
+.zp-select__menu-item.is-disabled,
+.zp-select__menu-item.is-disabled.is-selected {
+  color: #a8abb2 !important;
+  cursor: not-allowed !important;
+  background-color: transparent !important;
+  font-weight: normal !important;
+}
+
+/* 修改placeholder的样式*/
+.zp-select .zp-select-tooltip :deep(.zp-input__wrapper) :deep(.zp-input__placeholder),
+.zp-select-tooltip :deep(.zp-input__wrapper) :deep(.zp-input__placeholder) {
+  color: #d0cfcf !important;
+  opacity: 1 !important;
+}
+
+

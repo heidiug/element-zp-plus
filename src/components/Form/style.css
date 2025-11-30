@@ -1,0 +1,64 @@
+
+
+.zp-form-item {
+    display: flex;
+    margin-bottom: 18px;
+    margin-left: 0px;
+    .zp-form-item__label {
+        width: 150px;
+        height: 32px;
+        line-height: 32px;
+        padding-right: 12px;
+        box-sizing: border-box;
+        display: inline-flex;
+        justify-content: flex-end;
+        font-size: 14px;
+        color: var(--zp-text-color-primary);
+        text-align: right;
+    }
+
+    .zp-form-item__content {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 1;
+        line-height: 32px;
+        font-size: 14px;
+        min-width: 0;
+        position: relative;
+    }
+
+    .zp-form-item__message {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding-top: 4px;
+        color: var(--zp-color-danger);
+        font-size: 12px;
+        line-height: 1;
+    }
+}
+
+.zp-form-item.is-success {
+    :deep(.zp-input__wrapper),
+    :deep(.zp-input.is-focused .zp-input__wrapper),
+    :deep(.zp-input__wrapper.is-focused) {
+      border-color: var(--zp-color-success) !important;
+    }
+  }
+  
+  .zp-form-item.is-error {
+    :deep(.zp-input__wrapper),
+    :deep(.zp-input.is-focused .zp-input__wrapper),
+    :deep(.zp-input__wrapper.is-focused) {
+      border-color: var(--zp-color-danger) !important;
+    }
+  }
+  
+  .zp-form-item.is-loading {
+    :deep(.zp-input__wrapper),
+    :deep(.zp-input.is-focused .zp-input__wrapper),
+    :deep(.zp-input__wrapper.is-focused) {
+      border-color: var(--zp-color-primary) !important;
+    }
+  }
+
