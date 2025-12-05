@@ -8,6 +8,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
 
     steps:
       - name: ⬇️ Checkout 仓库
@@ -15,32 +19,29 @@ jobs:
         with:
           fetch-depth: 0
 
-      # 1. 🛠️ 仅设置 Node.js 环境 (不配置 pnpm 缓存，让 pnpm/action-setup 独立负责 pnpm)
+      # 1. 📥 安装 pnpm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+          run_install: false
+
+      # 2. 🛠️ 设置 Node.js 环境并启用 pnpm 缓存
       - name: Setup Node.js Environment
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # 🚨 关键修改: 移除 cache: 'pnpm' 这一行，避免 setup-node 尝试查找 pnpm。
+          cache: 'pnpm' # 启用 pnpm 依赖缓存，加速后续构建
 
-      # 2. 📥 关键步骤: 使用官方 Action 明确安装 pnpm (并设置缓存)
-      - name: Install and Setup pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 8 # 指定一个稳定的 pnpm 版本
-          run_install: false
-          # 🚨 新增: 明确启用 pnpm 缓存 (cache: true)
-          cache: true
-
-      - name: 📦 安装依赖 (使用 pnpm)
-        # 现在 pnpm 路径已设置好，可以运行 install
+      - name: 📦 安装依赖
         run: pnpm install --frozen-lockfile
 
       - name: 🏗️ 构建 VitePress 文档
         run: pnpm run docs:build
 
-      # === 部署步骤保持不变 ===
-      - name: 🚀 部署到 GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      # 3. 🚀 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
