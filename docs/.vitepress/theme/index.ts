@@ -3,61 +3,65 @@ import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import './style.css'
 
-// 导入组件库的所有组件
-import zpButton from '@/components/Button/zpButton.vue'
-import zpIcon from '@/components/Icon/zpIcon.vue'
-import zpAlert from '@/components/Alert/zpAltert.vue'
-import zpCollapse from '@/components/Collapse/zpCollapse.vue'
-import zpCollapseItem from '@/components/Collapse/zpCollapseItem.vue'
-import zpTooltip from '@/components/Tooltip/zpTooltip.vue'
-import zpDropdown from '@/components/Dropdown/zpDropdown.vue'
-import zpDropdownMenu from '@/components/Dropdown/zpDropdownMenu.vue'
-import zpDropdownItem from '@/components/Dropdown/zpDropdowmItem.vue'
-import zpMessage from '@/components/Message/zpMessage.vue'
-import zpForm from '@/components/Form/zpForm.vue'
-import zpFormItem from '@/components/Form/zpFormItem.vue'
-import zpInput from '@/components/Input/zpInput.vue'
-import zpSelect from '@/components/Select/zpSelect.vue'
-import zpSwitch from '@/components/Switch/zpSwitch.vue'
+// 导入组件
+import ZpButton from '../../../src/components/Button/zpButton.vue'
+import ZpIcon from '../../../src/components/Icon/zpIcon.vue'
+import ZpAlert from '../../../src/components/Alert/zpAltert.vue'
+import ZpTooltip from '../../../src/components/Tooltip/zpTooltip.vue'
+import ZpCollapse from '../../../src/components/Collapse/zpCollapse.vue'
+import ZpCollapseItem from '../../../src/components/Collapse/zpCollapseItem.vue'
+import ZpSwitch from '../../../src/components/Switch/zpSwitch.vue'
+import ZpForm from '../../../src/components/Form/zpForm.vue'
+import ZpFormItem from '../../../src/components/Form/zpFormItem.vue'
+import ZpInput from '../../../src/components/Input/zpInput.vue'
+import ZpSelect from '../../../src/components/Select/zpSelect.vue'
+import ZpDropdown from '../../../src/components/Dropdown/zpDropdown.vue'
+import ZpDropdownMenu from '../../../src/components/Dropdown/zpDropdownMenu.vue'
+import ZpDropdownItem from '../../../src/components/Dropdown/zpDropdowmItem.vue'
 
-// 导入组件库样式
-import '@/styles/index.css'
+// 导入 DemoContainer 组件
+import DemoContainer from '../components/DemoContainer.vue'
+
+// 导入 Message 方法
+import { createMessage } from '../../../src/components/Message/method'
+
+// 导入全局样式
+import '../../../src/styles/index.css'
 
 // 导入 FontAwesome
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
-library.add(fas)
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-// 导入 Demo Block 组件
-import DemoBlock from './components/DemoBlock.vue'
+// 添加 FontAwesome 图标库
+library.add(fas)
 
 export default {
   extends: DefaultTheme,
   enhanceApp({ app }) {
-    // 全局注册组件库的所有组件
-    app.component('zp-button', zpButton)
-    app.component('zp-icon', zpIcon)
-    app.component('zp-alert', zpAlert)
-    app.component('zp-collapse', zpCollapse)
-    app.component('zp-collapse-item', zpCollapseItem)
-    app.component('zp-tooltip', zpTooltip)
-    app.component('zp-dropdown', zpDropdown)
-    app.component('zp-dropdown-menu', zpDropdownMenu)
-    app.component('zp-dropdown-item', zpDropdownItem)
-    app.component('zp-message', zpMessage)
-    app.component('zp-form', zpForm)
-    app.component('zp-form-item', zpFormItem)
-    app.component('zp-input', zpInput)
-    app.component('zp-select', zpSelect)
-    app.component('zp-switch', zpSwitch)
+    // 注册所有组件
+    app.component('ZpButton', ZpButton)
+    app.component('ZpIcon', ZpIcon)
+    app.component('ZpAlert', ZpAlert)
+    app.component('ZpTooltip', ZpTooltip)
+    app.component('ZpCollapse', ZpCollapse)
+    app.component('ZpCollapseItem', ZpCollapseItem)
+    app.component('ZpSwitch', ZpSwitch)
+    app.component('ZpForm', ZpForm)
+    app.component('ZpFormItem', ZpFormItem)
+    app.component('ZpInput', ZpInput)
+    app.component('ZpSelect', ZpSelect)
+    app.component('ZpDropdown', ZpDropdown)
+    app.component('ZpDropdownMenu', ZpDropdownMenu)
+    app.component('ZpDropdownItem', ZpDropdownItem)
     
-    // 注册 Demo Block 组件
-    app.component('DemoBlock', DemoBlock)
-  },
-  Layout: () => {
-    return h(DefaultTheme.Layout, null, {
-      // 可以在这里自定义布局插槽
-    })
+    // 注册 FontAwesome 组件
+    app.component('FontAwesomeIcon', FontAwesomeIcon)
+    
+    // 注册 DemoContainer 组件
+    app.component('DemoContainer', DemoContainer)
+    
+    // 将 createMessage 方法添加到全局属性，方便在文档中使用
+    app.config.globalProperties.$message = createMessage
   }
 } satisfies Theme
-

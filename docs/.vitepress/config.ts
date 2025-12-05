@@ -1,97 +1,10 @@
 import { defineConfig } from 'vitepress'
-import { fileURLToPath, URL } from 'node:url'
-import { readdirSync } from 'fs'
-import container from 'markdown-it-container'
-
-// 自动扫描组件目录生成侧边栏
-function getComponentsSidebar() {
-  const componentsDir = fileURLToPath(new URL('../../src/components', import.meta.url))
-  const sidebar: any[] = []
-  
-  try {
-    const entries = readdirSync(componentsDir, { withFileTypes: true })
-    
-    for (const entry of entries) {
-      if (entry.isDirectory() && entry.name !== 'Common') {
-        const componentName = entry.name
-        const componentPath = `/components/${componentName.toLowerCase()}`
-        
-        sidebar.push({
-          text: componentName,
-          link: `${componentPath}/`,
-          items: [
-            { text: '基础用法', link: `${componentPath}/` },
-            { text: 'API', link: `${componentPath}/api` }
-          ]
-        })
-      }
-    }
-  } catch (error) {
-    console.warn('Failed to scan components directory:', error)
-  }
-  
-  return sidebar
-}
+import { fileURLToPath } from 'node:url'
 
 export default defineConfig({
-  title: 'zp-element-plus',
-  description: 'A Vue 3 Component Library',
-  
-  // 主题配置
-  themeConfig: {
-    // Logo 配置
-    logo: {
-      text: 'zp-element-plus',
-      alt: 'zp-element-plus'
-    },
-    
-    // 导航栏
-    nav: [
-      { text: '指南', link: '/guide/' },
-      { text: '组件', link: '/components/button/index' }
-    ],
-
-    // 侧边栏
-    sidebar: {
-      '/guide/': [
-      {
-          text: '开始',
-        items: [
-            { text: '介绍', link: '/guide/' },
-            { text: '快速开始', link: '/guide/installation' }
-        ]
-      }
-    ],
-      '/components/': getComponentsSidebar()
-    },
-
-    // 社交链接
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com' }
-    ],
-    
-    // 搜索
-    search: {
-      provider: 'local'
-    },
-    
-    // 编辑链接
-    editLink: {
-      pattern: 'https://github.com/your-repo/edit/main/docs/:path',
-      text: '在 GitHub 上编辑此页'
-    },
-    
-    // 最后更新时间
-    lastUpdated: {
-      text: '最后更新于'
-    },
-    
-    // 页脚
-    footer: {
-      message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2024 zp-element-plus'
-    }
-  },
+  title: 'Element ZP Plus',
+  description: '基于 Vue 3 的组件库',
+  lang: 'zh-CN',
   
   // Vite 配置
   vite: {
@@ -100,61 +13,136 @@ export default defineConfig({
         '@': fileURLToPath(new URL('../../src', import.meta.url))
       }
     },
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `@import "@/styles/vars.css";`
+    optimizeDeps: {
+      include: ['vue', '@fortawesome/vue-fontawesome', '@fortawesome/fontawesome-svg-core']
+    },
+    ssr: {
+      noExternal: ['element-zp-plus']
+    }
+  },
+  
+  // 主题配置
+  themeConfig: {
+    // 网站标题
+    siteTitle: 'Element ZP Plus',
+    
+    // Logo
+    logo: '/favicon.ico',
+    
+    // 导航栏
+    nav: [
+      { text: '指南', link: '/guide/' },
+      { text: '组件', link: '/components/' }
+    ],
+    
+    // 侧边栏
+    sidebar: {
+      '/guide/': [
+        {
+          text: '指南',
+          items: [
+            { text: '介绍', link: '/guide/' },
+            { text: '快速开始', link: '/guide/quickstart' }
+          ]
+        }
+      ],
+      '/components/': [
+        {
+          text: '组件总览',
+          items: [
+            { text: 'Overview 组件总览', link: '/components/' }
+          ]
+        },
+        {
+          text: 'Basic 基础组件',
+          items: [
+            { text: 'Button 按钮', link: '/components/button' },
+            { text: 'Icon 图标', link: '/components/icon' },
+            { text: 'Alert 警告', link: '/components/alert' },
+            { text: 'Tooltip 文字提示', link: '/components/tooltip' },
+            { text: 'Collapse 折叠面板', link: '/components/collapse' },
+            { text: 'Switch 开关', link: '/components/switch' },
+            { text: 'Message 消息提示', link: '/components/message' }
+          ]
+        },
+        {
+          text: 'Form 表单组件',
+          items: [
+            { text: 'Form 表单', link: '/components/form' },
+            { text: 'Input 输入框', link: '/components/input' },
+            { text: 'Select 选择器', link: '/components/select' }
+          ]
+        },
+        {
+          text: 'Data 数据展示',
+          items: [
+            { text: 'Dropdown 下拉菜单', link: '/components/dropdown' }
+          ]
+        }
+      ]
+    },
+    
+    // 社交链接
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/heidiug' }
+    ],
+    
+    // 搜索配置
+    search: {
+      provider: 'local',
+      options: {
+        translations: {
+          button: {
+            buttonText: '搜索',
+            buttonAriaLabel: '搜索文档'
+          },
+          modal: {
+            noResultsText: '无法找到相关结果',
+            resetButtonTitle: '清除查询条件',
+            footer: {
+              selectText: '选择',
+              navigateText: '切换',
+              closeText: '关闭'
+            }
+          }
         }
       }
     },
-    ssr: {
-      noExternal: ['vitepress']
+    
+    // 编辑链接
+    editLink: {
+      pattern: '',
+      text: '在 GitHub 上编辑此页'
     },
-    // 修复 VitePress 2.0.0-alpha.15 的 VPTeamPageTitle.vue 错误
-    optimizeDeps: {
-      exclude: []
+    
+    // 最后更新时间
+    lastUpdated: {
+      text: '最后更新于',
+      formatOptions: {
+        dateStyle: 'short',
+        timeStyle: 'medium'
+      }
+    },
+    
+    // 页脚
+    footer: {
+      message: '基于 MIT 许可发布',
+      copyright: 'Copyright © 2024 Element ZP Plus'
+    },
+    
+    // 大纲配置
+    outline: {
+      level: [2, 3],
+      label: '目录'
     }
   },
   
   // Markdown 配置
   markdown: {
     lineNumbers: true,
-    config(md) {
-      // 使用 markdown-it-container 插件支持 ::: demo 语法
-      md.use(container, 'demo', {
-        validate(params: string) {
-          return params.trim().match(/^demo\s*(.*)$/)
-        },
-        render(tokens: any[], idx: number) {
-          const m = tokens[idx].info.trim().match(/^demo\s*(.*)$/)
-          const description = m && m.length > 1 ? m[1] : ''
-          
-          if (tokens[idx].nesting === 1) {
-            // opening tag - 直接返回，让 VitePress 处理 Vue 组件
-            const descAttr = description ? ` description="${md.utils.escapeHtml(description)}"` : ''
-            return `<DemoBlock${descAttr}>\n`
-          } else {
-            // closing tag
-            return '</DemoBlock>\n'
-          }
-        }
-      })
-      
-      // 处理代码块：在 demo 块关闭后的代码块作为源代码显示
-      const fence = md.renderer.rules.fence!
-      md.renderer.rules.fence = (tokens, idx, options, env, self) => {
-        const token = tokens[idx]
-        const prevToken = tokens[idx - 1]
-        
-        // 检查前一个 token 是否是 demo 块的关闭标签
-        if (prevToken && prevToken.type === 'container_demo_close') {
-          // 这是源代码，包装在特殊标记中（放在 DemoBlock 外部）
-          const code = fence(tokens, idx, options, env, self)
-          return `<div class="demo-code">${code}</div>`
-        }
-        
-        return fence(tokens, idx, options, env, self)
-      }
+    config: (md) => {
+      // 可以在这里配置 markdown-it 插件
     }
   }
 })
+
