@@ -3,7 +3,7 @@ name: Deploy VitePress Docs via GitHub Pages
 on:
   push:
     branches:
-      - main # 只有推送到 main 分支时才触发部署
+      - main
 
 jobs:
   deploy:
@@ -13,26 +13,26 @@ jobs:
       - name: ⬇️ Checkout 仓库
         uses: actions/checkout@v4
         with:
-          # 确保获取完整历史记录，对 VitePress 构建很重要
           fetch-depth: 0
 
-      - name: 🛠️ Setup Node.js 环境
+      # 👇 修改: 使用 setup-node 来安装 Node.js 和 pnpm
+      - name: 🛠️ Setup Node.js & pnpm 环境
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm' # 使用 pnpm 缓存
+          cache: 'pnpm'
+          # 告诉 setup-node 自动安装 pnpm
+          cache-dependency-path: pnpm-lock.yaml # 假设你使用了 pnpm-lock.yaml
 
-      # 👇 新增步骤：全局安装 pnpm
-      - name: 📥 安装 pnpm
-        run: npm install -g pnpm
+      # 👇 新增: 使用 pnpm action setup 来确保 pnpm 可用
+      - name: 📥 Ensure pnpm is available
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8 # 推荐安装 pnpm 8 版本
+          run_install: false # 不在这里运行 install
 
       - name: 📦 安装依赖
-        run: pnpm install --frozen-lockfile
-
-      - name: 🏗️ 构建 VitePress 文档
-        run: pnpm run docs:build
-
-      - name: 📦 安装依赖
+        # 现在 pnpm 应该可以找到了
         run: pnpm install --frozen-lockfile
 
       - name: 🏗️ 构建 VitePress 文档
@@ -42,9 +42,6 @@ jobs:
       - name: 🚀 部署到 GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          # 用于认证的 GitHub Token
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          # 要推送的分支
           publish_branch: gh-pages
-          # VitePress 的构建输出目录 (默认是 docs/.vitepress/dist)
           publish_dir: docs/.vitepress/dist
