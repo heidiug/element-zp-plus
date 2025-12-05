@@ -22,6 +22,16 @@ jobs:
           node-version: 20
           cache: 'pnpm' # 使用 pnpm 缓存
 
+      # 👇 新增步骤：全局安装 pnpm
+      - name: 📥 安装 pnpm
+        run: npm install -g pnpm
+
+      - name: 📦 安装依赖
+        run: pnpm install --frozen-lockfile
+
+      - name: 🏗️ 构建 VitePress 文档
+        run: pnpm run docs:build
+
       - name: 📦 安装依赖
         run: pnpm install --frozen-lockfile
 
