@@ -5,7 +5,7 @@ export default defineConfig({
   title: 'Element ZP Plus',
   description: '基于 Vue 3 的组件库',
   lang: 'zh-CN',
-  
+  base: '/element-zp-plus/',
   // Vite 配置
   vite: {
     resolve: {
@@ -20,21 +20,21 @@ export default defineConfig({
       noExternal: ['element-zp-plus']
     }
   },
-  
+
   // 主题配置
   themeConfig: {
     // 网站标题
     siteTitle: 'Element ZP Plus',
-    
+
     // Logo
     logo: '/favicon.ico',
-    
+
     // 导航栏
     nav: [
       { text: '指南', link: '/guide/' },
       { text: '组件', link: '/components/' }
     ],
-    
+
     // 侧边栏
     sidebar: {
       '/guide/': [
@@ -49,9 +49,7 @@ export default defineConfig({
       '/components/': [
         {
           text: '组件总览',
-          items: [
-            { text: 'Overview 组件总览', link: '/components/' }
-          ]
+          items: [{ text: 'Overview 组件总览', link: '/components/' }]
         },
         {
           text: 'Basic 基础组件',
@@ -75,18 +73,14 @@ export default defineConfig({
         },
         {
           text: 'Data 数据展示',
-          items: [
-            { text: 'Dropdown 下拉菜单', link: '/components/dropdown' }
-          ]
+          items: [{ text: 'Dropdown 下拉菜单', link: '/components/dropdown' }]
         }
       ]
     },
-    
+
     // 社交链接
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/heidiug' }
-    ],
-    
+    socialLinks: [{ icon: 'github', link: 'https://github.com/heidiug' }],
+
     // 搜索配置
     search: {
       provider: 'local',
@@ -108,13 +102,13 @@ export default defineConfig({
         }
       }
     },
-    
+
     // 编辑链接
     editLink: {
       pattern: '',
       text: '在 GitHub 上编辑此页'
     },
-    
+
     // 最后更新时间
     lastUpdated: {
       text: '最后更新于',
@@ -123,20 +117,20 @@ export default defineConfig({
         timeStyle: 'medium'
       }
     },
-    
+
     // 页脚
     footer: {
       message: '基于 MIT 许可发布',
       copyright: 'Copyright © 2024 Element ZP Plus'
     },
-    
+
     // 大纲配置
     outline: {
       level: [2, 3],
       label: '目录'
     }
   },
-  
+
   // Markdown 配置
   markdown: {
     lineNumbers: true,
@@ -145,4 +139,3 @@ export default defineConfig({
     }
   }
 })
-

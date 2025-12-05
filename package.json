@@ -1,8 +1,27 @@
 {
   "name": "element-zp-plus",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
+  "private": false,
   "type": "module",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "main": "dist/zp-element-plus.umd.cjs",
+  "module": "dist/zp-element-plus.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/zp-element-plus.js"
+      },
+      "require": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/zp-element-plus.umd.cjs"
+      }
+    }
+  },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },
@@ -63,9 +82,12 @@
     "postcss-each": "^1.1.0",
     "postcss-nested": "^7.0.2",
     "prettier": "3.6.2",
+    "rollup": "^4.53.3",
     "sass": "^1.94.2",
+    "terser": "^5.44.1",
     "typescript": "~5.9.0",
     "vite": "^7.1.11",
+    "vite-plugin-dts": "^4.5.4",
     "vite-plugin-vue-devtools": "^8.0.3",
     "vitepress": "2.0.0-alpha.15",
     "vitest": "^4.0.13",
