@@ -3,5 +3,8 @@ module.exports = {
     require('postcss-nested'), 
     require('autoprefixer'),
     require('postcss-each'),
+    require('cssnano')({
+      preset: 'default'
+    })
   ]
 }

@@ -5,7 +5,12 @@
   "type": "module",
   "files": [
     "dist",
+    "src",
     "README.md"
+  ],
+  "sideeffects": [
+    "*.css",
+    "./src/styles/*.css"
   ],
   "main": "dist/zp-element-plus.umd.cjs",
   "module": "dist/zp-element-plus.js",
@@ -20,10 +25,86 @@
         "types": "./dist/types/index.d.ts",
         "default": "./dist/zp-element-plus.umd.cjs"
       }
+    },
+    "./button": {
+      "import": {
+        "types": "./dist/types/components/Button/index.d.ts",
+        "default": "./src/components/Button/index.ts"
+      }
+    },
+    "./input": {
+      "import": {
+        "types": "./dist/types/components/Input/index.d.ts",
+        "default": "./src/components/Input/index.ts"
+      }
+    },
+    "./alert": {
+      "import": {
+        "types": "./dist/types/components/Alert/index.d.ts",
+        "default": "./src/components/Alert/index.ts"
+      }
+    },
+    "./collapse": {
+      "import": {
+        "types": "./dist/types/components/Collapse/index.d.ts",
+        "default": "./src/components/Collapse/index.ts"
+      }
+    },
+    "./dropdown": {
+      "import": {
+        "types": "./dist/types/components/Dropdown/index.d.ts",
+        "default": "./src/components/Dropdown/index.ts"
+      }
+    },
+    "./form": {
+      "import": {
+        "types": "./dist/types/components/Form/index.d.ts",
+        "default": "./src/components/Form/index.ts"
+      }
+    },
+    "./icon": {
+      "import": {
+        "types": "./dist/types/components/Icon/index.d.ts",
+        "default": "./src/components/Icon/index.ts"
+      }
+    },
+    "./message": {
+      "import": {
+        "types": "./dist/types/components/Message/index.d.ts",
+        "default": "./src/components/Message/index.ts"
+      }
+    },
+    "./select": {
+      "import": {
+        "types": "./dist/types/components/Select/index.d.ts",
+        "default": "./src/components/Select/index.ts"
+      }
+    },
+    "./switch": {
+      "import": {
+        "types": "./dist/types/components/Switch/index.d.ts",
+        "default": "./src/components/Switch/index.ts"
+      }
+    },
+    "./tooltip": {
+      "import": {
+        "types": "./dist/types/components/Tooltip/index.d.ts",
+        "default": "./src/components/Tooltip/index.ts"
+      }
     }
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
+  },
+  "peerDependencies": {
+    "@floating-ui/core": "^1.7.0",
+    "@floating-ui/vue": "^1.1.0",
+    "@fortawesome/fontawesome-svg-core": "^7.0.0",
+    "@fortawesome/free-solid-svg-icons": "^7.0.0",
+    "@fortawesome/vue-fontawesome": "^3.0.0",
+    "@popperjs/core": "^2.11.0",
+    "async-validator": "^4.0.0",
+    "vue": "^3.0.0"
   },
   "scripts": {
     "dev": "vite",
@@ -40,20 +121,15 @@
     "test:coverage": "vitest run --coverage",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:deploy": "gh-pages -d docs/.vitepress/dist"
   },
-  "dependencies": {
+  "devDependencies": {
     "@floating-ui/core": "^1.7.3",
     "@floating-ui/vue": "^1.1.9",
     "@fortawesome/fontawesome-svg-core": "^7.1.0",
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
     "@fortawesome/vue-fontawesome": "^3.1.2",
     "@popperjs/core": "^2.11.8",
-    "async-validator": "^4.2.5",
-    "path": "^0.12.7",
-    "vue": "^3.5.22"
-  },
-  "devDependencies": {
     "@prettier/plugin-oxc": "^0.0.4",
     "@tsconfig/node22": "^22.0.2",
     "@types/lodash": "^4.17.20",
@@ -67,11 +143,14 @@
     "@vue/eslint-config-typescript": "^14.6.0",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.8.1",
+    "async-validator": "^4.2.5",
     "autoprefixer": "^10.4.22",
+    "cssnano": "^7.1.2",
     "eslint": "^9.37.0",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-oxlint": "~1.23.0",
     "eslint-plugin-vue": "~10.5.0",
+    "gh-pages": "^6.3.0",
     "jiti": "^2.6.1",
     "jsdom": "^27.2.0",
     "lodash-es": "^4.17.21",
@@ -81,8 +160,10 @@
     "postcss": "^8.5.6",
     "postcss-each": "^1.1.0",
     "postcss-nested": "^7.0.2",
+    "postcss-preset-env": "^10.5.0",
     "prettier": "3.6.2",
     "rollup": "^4.53.3",
+    "rollup-plugin-visualizer": "^6.0.5",
     "sass": "^1.94.2",
     "terser": "^5.44.1",
     "typescript": "~5.9.0",
@@ -91,6 +172,7 @@
     "vite-plugin-vue-devtools": "^8.0.3",
     "vitepress": "2.0.0-alpha.15",
     "vitest": "^4.0.13",
+    "vue": "^3.5.22",
     "vue-tsc": "^3.1.1"
   }
 }

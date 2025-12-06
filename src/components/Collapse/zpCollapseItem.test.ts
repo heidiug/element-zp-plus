@@ -11,7 +11,7 @@ library.add(fas)
 
 // 创建模拟的 collapse context
 const createMockContext = (activeNames: string[] = []) => {
-  const activeNamesRef = ref(activeNames)
+  const activeNamesRef = ref<(string | number)[]>([])
   const handleItemClick = vi.fn((name: string | number) => {
     if (activeNamesRef.value.includes(name)) {
       activeNamesRef.value = activeNamesRef.value.filter((item) => item !== name)
@@ -256,4 +256,3 @@ describe('zpCollapseItem 组件', () => {
     expect(header.attributes('id')).toBe('zp-collapse-test-item')
   })
 })
-
